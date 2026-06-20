@@ -3,7 +3,7 @@ makes UserGame.ini file for self hosting when using https://github.com/Red-Blink
 
 Work In Progress!
 
-I'm going to have Cursor go over this tomorrow. Gemini pro output level here now.
+~~I'm going to have Cursor go over this tomorrow. Gemini pro output level here now.~~
 
 
 Link: https://jeffstokes72.github.io/duneawakeningselfhost_ini_maker/
