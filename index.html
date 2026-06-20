@@ -168,11 +168,12 @@
                     </div>
 
                     <div id="content-economy" class="tab-content space-y-6">
-                        <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400">Native Harvesting Rates</label>
-                        <div class="grid grid-cols-3 gap-4">
+                        
+                        <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400">Harvesting Yields</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div>
                                 <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
-                                    <label class="block text-xs text-stone-400 cursor-help">Global Harvest Mult.</label>
+                                    <label class="block text-xs text-stone-400 cursor-help">Global Harvest</label>
                                     <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     <div class="absolute bottom-full left-0 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">Native: m_GlobalHarvestAmountMultiplier.<div class="tooltip-arrow" style="left:15%"></div></div>
                                 </div>
@@ -180,24 +181,32 @@
                             </div>
                             <div>
                                 <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
-                                    <label class="block text-xs text-stone-400 cursor-help">Cutteray Harvest Mult.</label>
+                                    <label class="block text-xs text-stone-400 cursor-help">Handheld Cutteray</label>
                                     <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">Native: CutterayHemMultiplierPerNodeTierTable. Yield for handheld laser.<div class="tooltip-arrow"></div></div>
+                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">Native: CutterayHemMultiplierPerNodeTierTable.<div class="tooltip-arrow"></div></div>
                                 </div>
                                 <input type="number" id="cutterayHarvest" value="1.5" step="0.1" min="0.1" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
                             </div>
                             <div>
                                 <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
-                                    <label class="block text-xs text-stone-400 cursor-help">Durability Loss Mult.</label>
+                                    <label class="block text-xs text-stone-400 cursor-help">Vehicle Cutteray</label>
                                     <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    <div class="absolute bottom-full right-0 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">Native: m_ItemDurabilityLossMultiplier. Lower = items last longer.<div class="tooltip-arrow" style="left:85%"></div></div>
+                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">Yield multiplier for ground vehicle mining lasers.<div class="tooltip-arrow"></div></div>
                                 </div>
-                                <input type="number" id="durabilityLoss" value="0.5" step="0.1" min="0.0" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
+                                <input type="number" id="vehicleMining" value="1.0" step="0.1" min="0.1" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
+                            </div>
+                            <div>
+                                <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
+                                    <label class="block text-xs text-stone-400 cursor-help">PvP Res. Bonus</label>
+                                    <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <div class="absolute bottom-full right-0 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">Incentive multiplier applied to resources gathered inside contested PvP zones.<div class="tooltip-arrow" style="left:85%"></div></div>
+                                </div>
+                                <input type="number" id="pvpResource" value="1.0" step="0.1" min="0.1" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
                             </div>
                         </div>
 
-                        <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 border-t border-stone-800/60 pt-6">Experience & Survival</label>
-                        <div class="grid grid-cols-3 gap-4">
+                        <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 border-t border-stone-800/60 pt-6">Experience Multipliers</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div>
                                 <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
                                     <label class="block text-xs text-stone-400 cursor-help">Global XP Mult.</label>
@@ -207,15 +216,39 @@
                                 <input type="number" id="globalXp" value="1.1" step="0.1" min="0.1" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
                             </div>
                             <div>
+                                <label class="block text-xs text-stone-400 mb-2">Combat XP</label>
+                                <input type="number" id="xpCombat" value="1.0" step="0.1" min="0.1" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-stone-400 mb-2">Exploration XP</label>
+                                <input type="number" id="xpExplore" value="1.0" step="0.1" min="0.1" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-stone-400 mb-2">Science XP</label>
+                                <input type="number" id="xpScience" value="1.0" step="0.1" min="0.1" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
+                            </div>
+                        </div>
+
+                        <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 border-t border-stone-800/60 pt-6">Survival Constraints</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div>
                                 <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
-                                    <label class="block text-xs text-stone-400 cursor-help">Water Drain Rate</label>
+                                    <label class="block text-xs text-stone-400 cursor-help">Durability Loss</label>
+                                    <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <div class="absolute bottom-full left-0 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">Native: m_ItemDurabilityLossMultiplier. Lower = items last longer.<div class="tooltip-arrow" style="left:15%"></div></div>
                                 </div>
+                                <input type="number" id="durabilityLoss" value="0.5" step="0.1" min="0.0" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-stone-400 mb-2">Water Drain Rate</label>
                                 <input type="number" id="waterDrain" value="1.0" step="0.1" min="0.1" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
                             </div>
                             <div>
-                                <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
-                                    <label class="block text-xs text-stone-400 cursor-help">Day/Night Speed</label>
-                                </div>
+                                <label class="block text-xs text-stone-400 mb-2">Stamina Regen</label>
+                                <input type="number" id="staminaRegen" value="1.0" step="0.1" min="0.1" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-stone-400 mb-2">Day/Night Speed</label>
                                 <input type="number" id="daySpeed" value="1.0" step="0.1" min="0.1" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 text-white">
                             </div>
                         </div>
@@ -409,8 +442,15 @@
             // Economy & Survival
             const globalHarvest = parseFloat(document.getElementById('globalHarvest').value || 1.5).toFixed(1);
             const cutterayHarvest = parseFloat(document.getElementById('cutterayHarvest').value || 1.5).toFixed(1);
+            const vehicleMining = parseFloat(document.getElementById('vehicleMining').value || 1.0).toFixed(1);
+            const pvpResource = parseFloat(document.getElementById('pvpResource').value || 1.0).toFixed(1);
+
             const durabilityLoss = parseFloat(document.getElementById('durabilityLoss').value || 0.5).toFixed(1);
             const globalXp = parseFloat(document.getElementById('globalXp').value || 1.1).toFixed(1);
+            const xpCombat = parseFloat(document.getElementById('xpCombat').value || 1.0).toFixed(1);
+            const xpExplore = parseFloat(document.getElementById('xpExplore').value || 1.0).toFixed(1);
+            const xpScience = parseFloat(document.getElementById('xpScience').value || 1.0).toFixed(1);
+
             const waterDrain = parseFloat(document.getElementById('waterDrain').value || 1.0).toFixed(1);
             const staminaRegen = parseFloat(document.getElementById('staminaRegen').value || 1.0).toFixed(1);
             const daySpeed = parseFloat(document.getElementById('daySpeed').value || 1.0).toFixed(1);
@@ -448,7 +488,12 @@ bEnableSandstorms=${sandstorms}
 bEnablePvP=${pvp}
 CutterayHemMultiplierPerNodeTierTable=${cutterayHarvest}
 m_GlobalHarvestAmountMultiplier=${globalHarvest}
+VehicleMiningMultiplier=${vehicleMining}
+PvPResourceMultiplier=${pvpResource}
 m_GlobalXPMultiplier=${globalXp}
+XpMultiplierCombat=${xpCombat}
+XpMultiplierExploration=${xpExplore}
+XpMultiplierScience=${xpScience}
 m_ItemDurabilityLossMultiplier=${durabilityLoss}
 WaterDrainMultiplier=${waterDrain}
 StaminaRegenerationMultiplier=${staminaRegen}
