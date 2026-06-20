@@ -597,14 +597,20 @@ m_MaxFps=${fpsCap}`;
             instances[activeIndex] = readForm();
         }
 
-        // Suggest the next free Survival_1 (Hagga Basin) partition number.
-        function nextHaggaPartition() {
+        // Suggest the next free partition number for the given map prefix.
+        function nextPartitionFor(mapPrefix) {
+            const escaped = mapPrefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const re = new RegExp('^' + escaped + ':(\\d+)$');
             let max = 0;
             instances.forEach(inst => {
-                const m = /^Survival_1:(\d+)$/.exec((inst.targetPartition || '').trim());
+                const m = re.exec((inst.targetPartition || '').trim());
                 if (m) max = Math.max(max, parseInt(m[1]));
             });
-            return 'Survival_1:' + (max + 1);
+            return mapPrefix + ':' + (max + 1);
+        }
+
+        function nextHaggaPartition() {
+            return nextPartitionFor('Survival_1');
         }
 
         function addInstance() {
@@ -623,6 +629,10 @@ m_MaxFps=${fpsCap}`;
             saveActive();
             const cfg = { ...instances[activeIndex] };
             cfg.serverName = (cfg.serverName || 'Instance') + ' (copy)';
+            const parts = (cfg.targetPartition || '').trim().match(/^(.+):(\d+)$/);
+            if (parts) {
+                cfg.targetPartition = nextPartitionFor(parts[1]);
+            }
             instances.splice(activeIndex + 1, 0, cfg);
             activeIndex += 1;
             writeForm(instances[activeIndex]);
