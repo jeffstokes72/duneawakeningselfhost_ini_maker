@@ -63,7 +63,7 @@
             <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
                 <div>
                     <h2 class="text-sm font-bold uppercase tracking-wider text-spice-500">Server Instances</h2>
-                    <p class="text-xs text-stone-500 mt-1 max-w-xl">Each instance is compiled into its own <span class="font-mono text-stone-400">[Partition:Map:Shard:...]</span> block inside a single <span class="font-mono text-stone-400">UserGame.ini</span>. Add a shard per Hagga Basin instance, plus one each for Deep Desert PvE / PvP.</p>
+                    <p class="text-xs text-stone-500 mt-1 max-w-xl">Each instance is compiled into its own <span class="font-mono text-stone-400">[Partition:Map:Partition#:...]</span> block inside a single <span class="font-mono text-stone-400">UserGame.ini</span>. Add one instance per Hagga Basin sietch, plus one each for Deep Desert PvE / PvP.</p>
                 </div>
                 <div class="flex gap-2 flex-wrap">
                     <button type="button" onclick="addInstance()" class="px-3 py-2 bg-spice-600/20 hover:bg-spice-600/40 border border-spice-600/50 rounded-lg text-xs font-semibold uppercase tracking-wide text-spice-400 hover:text-spice-300 transition-colors">+ Add Instance</button>
@@ -102,11 +102,11 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-[0.65rem] font-semibold tracking-wider uppercase text-stone-500 mb-1.5">Partition ID (Map:Shard)</label>
-                                    <input type="text" id="targetPartition" value="Survival_1:1" placeholder="Survival_1:2" class="w-full bg-stone-950 border border-stone-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-redblink transition-colors text-white font-mono">
+                                    <label class="block text-[0.65rem] font-semibold tracking-wider uppercase text-stone-500 mb-1.5">Partition ID (Map:Partition#)</label>
+                                    <input type="text" id="targetPartition" value="Survival_1:1" placeholder="Survival_1:44" class="w-full bg-stone-950 border border-stone-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-redblink transition-colors text-white font-mono">
                                 </div>
                             </div>
-                            <p class="text-xs text-stone-500 mt-2">Settings on this tab apply ONLY to the partition above. Use a preset, or type a custom shard such as <span class="font-mono text-stone-400">Survival_1:2</span> to run multiple Hagga Basin instances.</p>
+                            <p class="text-xs text-stone-500 mt-2">Settings on this tab apply ONLY to the partition above. The number is the <strong>Partition #</strong> shown on your RedBlink <em>Maps</em> page (e.g. a Hagga Basin sietch listed as <span class="font-mono text-stone-400">Partition 44 / Dimension 1</span> → <span class="font-mono text-stone-400">Survival_1:44</span>). Add one instance per sietch shard and one each for Deep Desert PvE/PvP.</p>
                         </div>
 
                         <div class="space-y-4">
