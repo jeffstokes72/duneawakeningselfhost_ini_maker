@@ -264,14 +264,20 @@
 
                         <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 border-t border-stone-800/60 pt-6">Global Overrides</label>
                         <div class="grid grid-cols-2 gap-3">
-                            <label class="flex items-center justify-between p-3 bg-stone-950/40 border border-stone-800/40 rounded-lg cursor-pointer hover:border-stone-700 transition-colors">
-                                <span class="text-sm text-stone-300">Cross-Server Char Transfer</span>
-                                <input type="checkbox" id="charTransfer" class="accent-spice-500 h-4 w-4 rounded">
-                            </label>
-                            <label class="flex items-center justify-between p-3 bg-stone-950/40 border border-stone-800/40 rounded-lg cursor-pointer hover:border-stone-700 transition-colors">
-                                <span class="text-sm text-stone-300">Share Cross-Dim Markers</span>
-                                <input type="checkbox" id="shareMarkers" checked class="accent-spice-500 h-4 w-4 rounded">
-                            </label>
+                            <div class="group relative">
+                                <label class="flex items-center justify-between p-3 bg-stone-950/40 border border-stone-800/40 rounded-lg cursor-pointer hover:border-stone-700 transition-colors">
+                                    <span class="text-sm text-stone-300">Cross-Server Char Transfer</span>
+                                    <input type="checkbox" id="charTransfer" class="accent-spice-500 h-4 w-4 rounded">
+                                </label>
+                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">Allows players to migrate their characters between interconnected database shards.<div class="tooltip-arrow"></div></div>
+                            </div>
+                            <div class="group relative">
+                                <label class="flex items-center justify-between p-3 bg-stone-950/40 border border-stone-800/40 rounded-lg cursor-pointer hover:border-stone-700 transition-colors">
+                                    <span class="text-sm text-stone-300">Share Cross-Dim Markers</span>
+                                    <input type="checkbox" id="shareMarkers" checked class="accent-spice-500 h-4 w-4 rounded">
+                                </label>
+                                <div class="absolute bottom-full right-0 mb-2 w-56 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">Ensures map markers remain visible globally, even when exploring instanced dungeons.<div class="tooltip-arrow" style="left:85%"></div></div>
+                            </div>
                         </div>
                     </div>
 
@@ -348,10 +354,12 @@
                         Because RedBlink routes all maps from a single source file, you only need to copy this one block:
                     </p>
                     <ol class="list-decimal list-inside text-xs text-stone-400 space-y-1.5 ml-1">
-                        <li>Ensure you have the correct <strong>Target Map Instance</strong> selected in the Core Setup tab.</li>
-                        <li>Click <strong>Copy Text</strong> below.</li>
-                        <li>Open the RedBlink Web Console and edit your unified <strong>UserGame.ini</strong>.</li>
-                        <li>Paste this block. The RedBlink parser will automatically apply these settings <em>only</em> to the selected partition.</li>
+                        <li>Ensure you have the correct <strong>Target Map Instance</strong> selected above.</li>
+                        <li>Click <strong>Copy Text</strong> on the compiled block below.</li>
+                        <li>Open your <strong>RedBlink Web Console</strong> and navigate to the configuration editors.</li>
+                        <li><strong class="text-rose-400">CRITICAL:</strong> Select the <strong>UserGame.ini</strong> file to edit or import to. <em class="text-stone-500">(Ignore UserEngine or UserSettings; RedBlink uses UserGame.ini as the unified master file for partitions).</em></li>
+                        <li>Paste this block at the very bottom of the file and save.</li>
+                        <li>Restart your server stack so the Autoscaler applies the changes.</li>
                     </ol>
                 </div>
 
