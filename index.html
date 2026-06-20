@@ -59,6 +59,21 @@
             </div>
         </header>
 
+        <div id="instanceManager" class="mb-8 bg-stone-900/40 border border-stone-800/80 p-5 rounded-xl shadow-xl">
+            <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
+                <div>
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-spice-500">Server Instances</h2>
+                    <p class="text-xs text-stone-500 mt-1 max-w-xl">Each instance is compiled into its own <span class="font-mono text-stone-400">[Partition:Map:Shard:...]</span> block inside a single <span class="font-mono text-stone-400">UserGame.ini</span>. Add a shard per Hagga Basin instance, plus one each for Deep Desert PvE / PvP.</p>
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                    <button type="button" onclick="addInstance()" class="px-3 py-2 bg-spice-600/20 hover:bg-spice-600/40 border border-spice-600/50 rounded-lg text-xs font-semibold uppercase tracking-wide text-spice-400 hover:text-spice-300 transition-colors">+ Add Instance</button>
+                    <button type="button" onclick="duplicateInstance()" class="px-3 py-2 bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg text-xs font-semibold uppercase tracking-wide text-stone-300 transition-colors">Duplicate</button>
+                    <button type="button" id="removeInstanceBtn" onclick="removeInstance()" class="px-3 py-2 bg-stone-800 hover:bg-rose-900/40 border border-stone-700 hover:border-rose-800 rounded-lg text-xs font-semibold uppercase tracking-wide text-stone-300 hover:text-rose-300 transition-colors">Remove</button>
+                </div>
+            </div>
+            <div id="instanceList" class="flex gap-2 flex-wrap"></div>
+        </div>
+
         <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
             
             <div class="xl:col-span-7 bg-stone-900/40 border border-stone-800/80 p-6 rounded-xl shadow-xl h-fit">
@@ -76,12 +91,22 @@
                         
                         <div class="bg-rose-950/20 border border-rose-900/30 rounded-lg p-4 mb-2">
                             <label class="block text-xs font-bold tracking-wider uppercase text-rose-400 mb-2">Target Map Instance</label>
-                            <select id="targetPartition" class="w-full bg-stone-950 border border-stone-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-redblink transition-colors text-white font-mono">
-                                <option value="Survival_1:1">Hagga Basin Hub (Survival_1:1)</option>
-                                <option value="DeepDesert_1:8">Deep Desert PvP (DeepDesert_1:8)</option>
-                                <option value="DeepDesert_1:33">Deep Desert PvE (DeepDesert_1:33)</option>
-                            </select>
-                            <p class="text-xs text-stone-500 mt-2">The compiled settings will ONLY apply to the map partition selected above.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[0.65rem] font-semibold tracking-wider uppercase text-stone-500 mb-1.5">Quick Preset</label>
+                                    <select id="mapPreset" onchange="applyPreset(this.value)" class="w-full bg-stone-950 border border-stone-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-redblink transition-colors text-white font-mono">
+                                        <option value="">— Select a preset —</option>
+                                        <option value="Survival_1:1">Hagga Basin Hub (Survival_1:1)</option>
+                                        <option value="DeepDesert_1:8">Deep Desert PvP (DeepDesert_1:8)</option>
+                                        <option value="DeepDesert_1:33">Deep Desert PvE (DeepDesert_1:33)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[0.65rem] font-semibold tracking-wider uppercase text-stone-500 mb-1.5">Partition ID (Map:Shard)</label>
+                                    <input type="text" id="targetPartition" value="Survival_1:1" placeholder="Survival_1:2" class="w-full bg-stone-950 border border-stone-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-redblink transition-colors text-white font-mono">
+                                </div>
+                            </div>
+                            <p class="text-xs text-stone-500 mt-2">Settings on this tab apply ONLY to the partition above. Use a preset, or type a custom shard such as <span class="font-mono text-stone-400">Survival_1:2</span> to run multiple Hagga Basin instances.</p>
                         </div>
 
                         <div class="space-y-4">
@@ -384,11 +409,11 @@
                         RedBlink Unified Deployment
                     </h3>
                     <p class="text-xs text-stone-400 leading-relaxed mb-3">
-                        Because RedBlink routes all maps from a single source file, you only need to copy this one block:
+                        RedBlink routes all maps from a single source file, so every instance you add above is compiled into one combined block:
                     </p>
                     <ol class="list-decimal list-inside text-xs text-stone-400 space-y-1.5 ml-1">
-                        <li>Ensure you have the correct <strong>Target Map Instance</strong> selected above.</li>
-                        <li>Click <strong>Copy Text</strong> on the compiled block below.</li>
+                        <li>Add an <strong>instance</strong> for each shard/map you want (e.g. multiple Hagga Basin shards + Deep Desert PvE/PvP).</li>
+                        <li>Click <strong>Copy Text</strong> on the compiled output below (it contains every partition).</li>
                         <li>Open your <strong>RedBlink Web Console</strong> and navigate to the configuration editors.</li>
                         <li><strong class="text-rose-400">CRITICAL:</strong> Select the <strong>UserGame.ini</strong> file to edit or import to. <em class="text-stone-500">(Ignore UserEngine or UserSettings; RedBlink uses UserGame.ini as the unified master file for partitions).</em></li>
                         <li>Paste this block at the very bottom of the file and save.</li>
@@ -424,52 +449,68 @@
             activeBtn.className = "px-4 py-2.5 text-sm font-semibold tracking-wide uppercase rounded-t-lg bg-spice-600/20 text-spice-500 border-b-2 border-spice-500 transition-colors whitespace-nowrap";
         }
 
-        function updateConfigs() {
+        // Fields shared between the live form and per-instance snapshots.
+        const TEXT_FIELDS = ['targetPartition','serverName','serverPwd','adminPwd','maxPlayers','spawnProtection','globalHarvest','cutterayHarvest','vehicleMining','pvpResource','durabilityLoss','globalXp','xpCombat','xpExplore','xpScience','waterDrain','staminaRegen','daySpeed','probeAlt','probeDist','pingDistance','pingExpiry','landclaimSegments','decayMult','fpsCap','stormWarning','shelterTrace'];
+        const CHECK_FIELDS = ['sandworms','coriolis','sandstorms','pvp','charTransfer','shareMarkers','anticheat'];
+
+        function readForm() {
+            const cfg = {};
+            TEXT_FIELDS.forEach(id => cfg[id] = document.getElementById(id).value);
+            CHECK_FIELDS.forEach(id => cfg[id] = document.getElementById(id).checked);
+            return cfg;
+        }
+
+        function writeForm(cfg) {
+            TEXT_FIELDS.forEach(id => { if (cfg[id] !== undefined) document.getElementById(id).value = cfg[id]; });
+            CHECK_FIELDS.forEach(id => { if (cfg[id] !== undefined) document.getElementById(id).checked = cfg[id]; });
+        }
+
+        function buildPartition(cfg) {
             // Core
-            const targetPartition = document.getElementById('targetPartition').value;
-            const serverName = document.getElementById('serverName').value || "Spice Haven";
-            const serverPwd = document.getElementById('serverPwd').value;
-            const adminPwd = document.getElementById('adminPwd').value;
-            const maxPlayers = document.getElementById('maxPlayers').value || 40;
-            const spawnProtection = document.getElementById('spawnProtection').value || 10;
+            const targetPartition = (cfg.targetPartition || "Survival_1:1").trim();
+            const serverName = cfg.serverName || "Spice Haven";
+            const serverPwd = cfg.serverPwd || "";
+            const adminPwd = cfg.adminPwd || "";
+            const maxPlayers = cfg.maxPlayers || 40;
+            const spawnProtection = cfg.spawnProtection || 10;
             
             // Threat Toggles
-            const sandworms = document.getElementById('sandworms').checked ? "True" : "False";
-            const coriolis = document.getElementById('coriolis').checked ? "True" : "False";
-            const sandstorms = document.getElementById('sandstorms').checked ? "True" : "False";
-            const pvp = document.getElementById('pvp').checked ? "True" : "False";
+            const sandworms = cfg.sandworms ? "True" : "False";
+            const coriolis = cfg.coriolis ? "True" : "False";
+            const sandstorms = cfg.sandstorms ? "True" : "False";
+            const pvp = cfg.pvp ? "True" : "False";
             
             // Economy & Survival
-            const globalHarvest = parseFloat(document.getElementById('globalHarvest').value || 1.5).toFixed(1);
-            const cutterayHarvest = parseFloat(document.getElementById('cutterayHarvest').value || 1.5).toFixed(1);
-            const vehicleMining = parseFloat(document.getElementById('vehicleMining').value || 1.0).toFixed(1);
-            const pvpResource = parseFloat(document.getElementById('pvpResource').value || 1.0).toFixed(1);
+            const globalHarvest = parseFloat(cfg.globalHarvest || 1.5).toFixed(1);
+            const cutterayHarvest = parseFloat(cfg.cutterayHarvest || 1.5).toFixed(1);
+            const vehicleMining = parseFloat(cfg.vehicleMining || 1.0).toFixed(1);
+            const pvpResource = parseFloat(cfg.pvpResource || 1.0).toFixed(1);
 
-            const durabilityLoss = parseFloat(document.getElementById('durabilityLoss').value || 0.5).toFixed(1);
-            const globalXp = parseFloat(document.getElementById('globalXp').value || 1.1).toFixed(1);
-            const xpCombat = parseFloat(document.getElementById('xpCombat').value || 1.0).toFixed(1);
-            const xpExplore = parseFloat(document.getElementById('xpExplore').value || 1.0).toFixed(1);
-            const xpScience = parseFloat(document.getElementById('xpScience').value || 1.0).toFixed(1);
+            const durabilityLoss = parseFloat(cfg.durabilityLoss || 0.5).toFixed(1);
+            const globalXp = parseFloat(cfg.globalXp || 1.1).toFixed(1);
+            const xpCombat = parseFloat(cfg.xpCombat || 1.0).toFixed(1);
+            const xpExplore = parseFloat(cfg.xpExplore || 1.0).toFixed(1);
+            const xpScience = parseFloat(cfg.xpScience || 1.0).toFixed(1);
 
-            const waterDrain = parseFloat(document.getElementById('waterDrain').value || 1.0).toFixed(1);
-            const staminaRegen = parseFloat(document.getElementById('staminaRegen').value || 1.0).toFixed(1);
-            const daySpeed = parseFloat(document.getElementById('daySpeed').value || 1.0).toFixed(1);
+            const waterDrain = parseFloat(cfg.waterDrain || 1.0).toFixed(1);
+            const staminaRegen = parseFloat(cfg.staminaRegen || 1.0).toFixed(1);
+            const daySpeed = parseFloat(cfg.daySpeed || 1.0).toFixed(1);
 
             // Map
-            const probeAlt = document.getElementById('probeAlt').value || 100;
-            const probeDist = document.getElementById('probeDist').value || 50;
-            const pingDistance = document.getElementById('pingDistance').value || 2000;
-            const pingExpiry = document.getElementById('pingExpiry').value || 60;
-            const charTransfer = document.getElementById('charTransfer').checked ? "True" : "False";
-            const shareMarkers = document.getElementById('shareMarkers').checked ? "True" : "False";
+            const probeAlt = cfg.probeAlt || 100;
+            const probeDist = cfg.probeDist || 50;
+            const pingDistance = cfg.pingDistance || 2000;
+            const pingExpiry = cfg.pingExpiry || 60;
+            const charTransfer = cfg.charTransfer ? "True" : "False";
+            const shareMarkers = cfg.shareMarkers ? "True" : "False";
 
             // Engine
-            const landclaimSegments = parseInt(document.getElementById('landclaimSegments').value || 12);
-            const decayMult = parseFloat(document.getElementById('decayMult').value || 1.0).toFixed(1);
-            const fpsCap = parseInt(document.getElementById('fpsCap').value || 20);
-            const stormWarning = parseInt(document.getElementById('stormWarning').value || 360);
-            const shelterTrace = document.getElementById('shelterTrace').value || 10000;
-            const anticheat = document.getElementById('anticheat').checked ? "true" : "false";
+            const landclaimSegments = parseInt(cfg.landclaimSegments || 12);
+            const decayMult = parseFloat(cfg.decayMult || 1.0).toFixed(1);
+            const fpsCap = parseInt(cfg.fpsCap || 20);
+            const stormWarning = parseInt(cfg.stormWarning || 360);
+            const shelterTrace = cfg.shelterTrace || 10000;
+            const anticheat = cfg.anticheat ? "true" : "false";
 
             // Compile RedBlink Specific Syntax unifying all variables
             const partitionTemplate = `[Partition:${targetPartition}:ConsoleVariables]
@@ -523,8 +564,7 @@ bMovementTimeDiscrepancyResolution=${anticheat}
 [Partition:${targetPartition}:/Script/DuneSandbox.MapFpsSettings]
 m_MaxFps=${fpsCap}`;
 
-            // Inject back to DOM
-            document.getElementById('partitionOutput').textContent = partitionTemplate;
+            return partitionTemplate;
         }
 
         function copyToClipboard(elementId, button) {
@@ -543,8 +583,121 @@ m_MaxFps=${fpsCap}`;
             });
         }
 
+        // ---- Multi-instance management ----
+        let instances = [];
+        let activeIndex = 0;
+        let INITIAL_DEFAULTS = {};
+
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        }
+
+        function saveActive() {
+            instances[activeIndex] = readForm();
+        }
+
+        // Suggest the next free Survival_1 (Hagga Basin) partition number.
+        function nextHaggaPartition() {
+            let max = 0;
+            instances.forEach(inst => {
+                const m = /^Survival_1:(\d+)$/.exec((inst.targetPartition || '').trim());
+                if (m) max = Math.max(max, parseInt(m[1]));
+            });
+            return 'Survival_1:' + (max + 1);
+        }
+
+        function addInstance() {
+            saveActive();
+            const cfg = { ...INITIAL_DEFAULTS };
+            cfg.targetPartition = nextHaggaPartition();
+            cfg.serverName = 'Hagga Shard ' + cfg.targetPartition.split(':')[1];
+            instances.push(cfg);
+            activeIndex = instances.length - 1;
+            writeForm(instances[activeIndex]);
+            refresh();
+        }
+
+        function duplicateInstance() {
+            saveActive();
+            const cfg = { ...instances[activeIndex] };
+            cfg.serverName = (cfg.serverName || 'Instance') + ' (copy)';
+            instances.splice(activeIndex + 1, 0, cfg);
+            activeIndex += 1;
+            writeForm(instances[activeIndex]);
+            refresh();
+        }
+
+        function removeInstance() {
+            if (instances.length <= 1) return;
+            instances.splice(activeIndex, 1);
+            if (activeIndex >= instances.length) activeIndex = instances.length - 1;
+            writeForm(instances[activeIndex]);
+            refresh();
+        }
+
+        function selectInstance(i) {
+            saveActive();
+            activeIndex = i;
+            writeForm(instances[activeIndex]);
+            refresh();
+        }
+
+        function applyPreset(val) {
+            if (!val) return;
+            document.getElementById('targetPartition').value = val;
+            document.getElementById('mapPreset').value = '';
+            updateConfigs();
+        }
+
+        function compileAll() {
+            const output = instances.map(buildPartition).join('\n\n');
+            document.getElementById('partitionOutput').textContent = output;
+        }
+
+        function renderInstanceList() {
+            const list = document.getElementById('instanceList');
+            list.innerHTML = '';
+            instances.forEach((inst, i) => {
+                const active = i === activeIndex;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => selectInstance(i);
+                btn.className = active
+                    ? 'px-3 py-2 rounded-lg border bg-spice-600/20 border-spice-500 transition-colors text-left'
+                    : 'px-3 py-2 rounded-lg border bg-stone-950/60 border-stone-800 hover:border-stone-600 transition-colors text-left';
+                const name = (inst.serverName || '').trim() || 'Unnamed';
+                btn.innerHTML =
+                    `<span class="block text-xs font-semibold ${active ? 'text-spice-300' : 'text-stone-200'}">${escapeHtml(name)}</span>` +
+                    `<span class="block text-[0.65rem] font-mono ${active ? 'text-spice-500/80' : 'text-stone-500'}">${escapeHtml((inst.targetPartition || '').trim() || '—')}</span>`;
+                list.appendChild(btn);
+            });
+            const removeBtn = document.getElementById('removeInstanceBtn');
+            if (removeBtn) {
+                const only = instances.length <= 1;
+                removeBtn.disabled = only;
+                removeBtn.classList.toggle('opacity-40', only);
+                removeBtn.classList.toggle('cursor-not-allowed', only);
+            }
+        }
+
+        function refresh() {
+            compileAll();
+            renderInstanceList();
+        }
+
+        // Live-update handler bound to every form input.
+        function updateConfigs() {
+            saveActive();
+            compileAll();
+            renderInstanceList();
+        }
+
+        // ---- Init ----
+        INITIAL_DEFAULTS = readForm();
+        instances = [readForm()];
+        activeIndex = 0;
         form.addEventListener('input', updateConfigs);
-        updateConfigs();
+        refresh();
     </script>
 </body>
 </html>
