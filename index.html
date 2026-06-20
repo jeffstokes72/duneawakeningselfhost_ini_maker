@@ -133,4 +133,333 @@
                         <div>
                             <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
                                 <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 cursor-help">Spawn Prot. (s)</label>
-                                <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9
+                                <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full right-0 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                    Seconds of invulnerability granted to players upon logging in or respawning.
+                                    <div class="tooltip-arrow" style="left: 85%;"></div>
+                                </div>
+                            </div>
+                            <input type="number" id="spawnProtection" value="10" min="0" max="60"
+                                   class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 transition-colors text-white">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-stone-800/60 pt-6">
+                        <div>
+                            <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
+                                <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 cursor-help">Handheld Mining</label>
+                                <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full left-0 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                    Yield multiplier for personal harvesting tools like the Cutteray.
+                                    <div class="tooltip-arrow" style="left: 15%;"></div>
+                                </div>
+                            </div>
+                            <input type="number" id="miningRate" value="1.0" step="0.1" min="0.1" max="10.0"
+                                   class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 transition-colors text-white">
+                        </div>
+                        <div>
+                            <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
+                                <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 cursor-help">Vehicle Mining</label>
+                                <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                    Yield multiplier for ground vehicle mining lasers and extractors.
+                                    <div class="tooltip-arrow"></div>
+                                </div>
+                            </div>
+                            <input type="number" id="vehicleMining" value="1.0" step="0.1" min="0.1" max="10.0"
+                                   class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 transition-colors text-white">
+                        </div>
+                        <div>
+                            <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
+                                <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 cursor-help">PvP Res. Bonus</label>
+                                <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                    Incentive multiplier applied to resources gathered inside contested PvP zones.
+                                    <div class="tooltip-arrow"></div>
+                                </div>
+                            </div>
+                            <input type="number" id="pvpResource" value="1.0" step="0.1" min="0.1" max="10.0"
+                                   class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 transition-colors text-white">
+                        </div>
+                        <div>
+                            <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
+                                <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 cursor-help">Build Limit</label>
+                                <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full right-0 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                    Global modifier for the maximum allowed structure pieces per base claim.
+                                    <div class="tooltip-arrow" style="left: 85%;"></div>
+                                </div>
+                            </div>
+                            <input type="number" id="buildLimit" value="1.0" step="0.1" min="0.1" max="5.0"
+                                   class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 transition-colors text-white">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-stone-800/60 pt-6">
+                        <div>
+                            <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
+                                <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 cursor-help">Ping Max Range (m)</label>
+                                <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                    Maximum distance (in meters) that a player's ping remains visible on-screen.
+                                    <div class="tooltip-arrow"></div>
+                                </div>
+                            </div>
+                            <input type="number" id="pingDistance" value="2000" min="500" max="10000"
+                                   class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 transition-colors text-white">
+                        </div>
+                        <div>
+                            <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
+                                <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 cursor-help">Ping Map Expiry (s)</label>
+                                <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                    How long (in seconds) a ping persists on the global fullscreen map.
+                                    <div class="tooltip-arrow"></div>
+                                </div>
+                            </div>
+                            <input type="number" id="pingExpiry" value="60" min="10" max="300"
+                                   class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 transition-colors text-white">
+                        </div>
+                        <div>
+                            <div class="group relative flex items-center gap-1.5 w-fit mb-2 cursor-help">
+                                <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 cursor-help">Shelter Trace (cm)</label>
+                                <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full right-0 mb-2 w-56 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                    Distance the server checks upwards to determine if a player is safely under a roof during a storm.
+                                    <div class="tooltip-arrow" style="left: 85%;"></div>
+                                </div>
+                            </div>
+                            <input type="number" id="shelterTrace" value="10000" min="1000" max="50000"
+                                   class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-spice-500 transition-colors text-white">
+                        </div>
+                    </div>
+
+                    <div class="border-t border-stone-800/60 pt-6 space-y-5">
+                        
+                        <div>
+                            <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 mb-3">Arrakis Threat Systems</label>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div class="group relative">
+                                    <label class="flex items-center justify-between p-3 bg-stone-950/40 border border-stone-800/40 rounded-lg cursor-pointer hover:border-stone-700 transition-colors">
+                                        <span class="text-sm text-stone-300">Sandworms</span>
+                                        <input type="checkbox" id="sandworms" checked class="accent-spice-500 h-4 w-4 rounded">
+                                    </label>
+                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                        Toggles the presence of apex predators in the deep desert.
+                                        <div class="tooltip-arrow"></div>
+                                    </div>
+                                </div>
+
+                                <div class="group relative">
+                                    <label class="flex items-center justify-between p-3 bg-stone-950/40 border border-stone-800/40 rounded-lg cursor-pointer hover:border-stone-700 transition-colors">
+                                        <span class="text-sm text-stone-300">Coriolis Wipes</span>
+                                        <input type="checkbox" id="coriolis" checked class="accent-spice-500 h-4 w-4 rounded">
+                                    </label>
+                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                        Toggles periodic deep desert environmental wipes and map layout shifts.
+                                        <div class="tooltip-arrow"></div>
+                                    </div>
+                                </div>
+
+                                <div class="group relative">
+                                    <label class="flex items-center justify-between p-3 bg-stone-950/40 border border-stone-800/40 rounded-lg cursor-pointer hover:border-stone-700 transition-colors">
+                                        <span class="text-sm text-stone-300">Sandstorms</span>
+                                        <input type="checkbox" id="sandstorms" checked class="accent-spice-500 h-4 w-4 rounded">
+                                    </label>
+                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                        Toggles dynamic, roaming weather events that damage unprotected players.
+                                        <div class="tooltip-arrow"></div>
+                                    </div>
+                                </div>
+
+                                <div class="group relative">
+                                    <label class="flex items-center justify-between p-3 bg-stone-950/40 border border-stone-800/40 rounded-lg cursor-pointer hover:border-stone-700 transition-colors">
+                                        <span class="text-sm text-stone-300">PvP Rules</span>
+                                        <input type="checkbox" id="pvp" checked class="accent-spice-500 h-4 w-4 rounded">
+                                    </label>
+                                    <div class="absolute bottom-full right-0 mb-2 w-48 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                        Enables player-versus-player combat in designated map zones.
+                                        <div class="tooltip-arrow" style="left: 85%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold tracking-wider uppercase text-stone-400 mb-3">Advanced Engine & Netcode Systems</label>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div class="group relative">
+                                    <label class="flex items-center justify-between p-3 bg-stone-950/40 border border-stone-800/40 rounded-lg cursor-pointer hover:border-stone-700 transition-colors">
+                                        <span class="text-sm text-stone-300">Move Discrepancy Anticheat</span>
+                                        <input type="checkbox" id="anticheat" checked class="accent-spice-500 h-4 w-4 rounded">
+                                    </label>
+                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                        Enables strict network checks to prevent speedhacks. May cause rubberbanding for players with high ping.
+                                        <div class="tooltip-arrow"></div>
+                                    </div>
+                                </div>
+
+                                <div class="group relative">
+                                    <label class="flex items-center justify-between p-3 bg-stone-950/40 border border-stone-800/40 rounded-lg cursor-pointer hover:border-stone-700 transition-colors">
+                                        <span class="text-sm text-stone-300">Cross-Server Char Transfer</span>
+                                        <input type="checkbox" id="charTransfer" class="accent-spice-500 h-4 w-4 rounded">
+                                    </label>
+                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                        Allows players to migrate their characters and progression between interconnected database shards.
+                                        <div class="tooltip-arrow"></div>
+                                    </div>
+                                </div>
+
+                                <div class="group relative">
+                                    <label class="flex items-center justify-between p-3 bg-stone-950/40 border border-stone-800/40 rounded-lg cursor-pointer hover:border-stone-700 transition-colors">
+                                        <span class="text-sm text-stone-300">Share Cross-Dim Markers</span>
+                                        <input type="checkbox" id="shareMarkers" checked class="accent-spice-500 h-4 w-4 rounded">
+                                    </label>
+                                    <div class="absolute bottom-full right-0 mb-2 w-56 p-2 bg-stone-800 border border-stone-700 text-stone-300 text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10 text-center">
+                                        Ensures map markers placed by party members remain visible globally, even when exploring instanced dungeons.
+                                        <div class="tooltip-arrow" style="left: 85%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="xl:col-span-5 space-y-6">
+                
+                <div class="bg-stone-900/20 border border-stone-800 rounded-xl overflow-hidden shadow-xl">
+                    <div class="bg-stone-900/60 border-b border-stone-800 px-5 py-3.5 flex justify-between items-center">
+                        <span class="font-mono text-xs font-bold tracking-wider text-stone-400 uppercase">UserEngine.ini</span>
+                        <button onclick="copyToClipboard('engineOutput', this)" class="px-3 py-1 bg-stone-800 hover:bg-spice-600 border border-stone-700 hover:border-spice-500 rounded text-xs transition-all font-medium text-stone-300 hover:text-white">
+                            Copy File
+                        </button>
+                    </div>
+                    <div class="p-4 bg-stone-950">
+                        <pre id="engineOutput" class="font-mono text-[0.8rem] leading-tight text-stone-300 whitespace-pre-wrap select-all block max-h-[250px] overflow-y-auto"></pre>
+                    </div>
+                </div>
+
+                <div class="bg-stone-900/20 border border-stone-800 rounded-xl overflow-hidden shadow-xl">
+                    <div class="bg-stone-900/60 border-b border-stone-800 px-5 py-3.5 flex justify-between items-center">
+                        <span class="font-mono text-xs font-bold tracking-wider text-stone-400 uppercase">UserGame.ini</span>
+                        <button onclick="copyToClipboard('gameOutput', this)" class="px-3 py-1 bg-stone-800 hover:bg-spice-600 border border-stone-700 hover:border-spice-500 rounded text-xs transition-all font-medium text-stone-300 hover:text-white">
+                            Copy File
+                        </button>
+                    </div>
+                    <div class="p-4 bg-stone-950">
+                        <pre id="gameOutput" class="font-mono text-[0.8rem] leading-tight text-stone-300 whitespace-pre-wrap select-all block max-h-[500px] overflow-y-auto"></pre>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('configForm');
+        
+        function updateConfigs() {
+            // Grab Text Inputs
+            const serverName = document.getElementById('serverName').value;
+            const serverPwd = document.getElementById('serverPwd').value;
+            const adminPwd = document.getElementById('adminPwd').value;
+            
+            // Grab Core Numeric Inputs
+            const maxPlayers = document.getElementById('maxPlayers').value || 40;
+            const tickRate = document.getElementById('tickRate').value || 30;
+            const spawnProtection = document.getElementById('spawnProtection').value || 10;
+            
+            // Grab Multipliers
+            const buildLimit = parseFloat(document.getElementById('buildLimit').value || 1.0).toFixed(1);
+            const miningRate = parseFloat(document.getElementById('miningRate').value || 1.0).toFixed(1);
+            const vehicleMining = parseFloat(document.getElementById('vehicleMining').value || 1.0).toFixed(1);
+            const pvpResource = parseFloat(document.getElementById('pvpResource').value || 1.0).toFixed(1);
+            
+            // Grab Advanced Numerics
+            const pingDistance = document.getElementById('pingDistance').value || 2000;
+            const pingExpiry = document.getElementById('pingExpiry').value || 60;
+            const shelterTrace = document.getElementById('shelterTrace').value || 10000;
+
+            // Grab Toggles (True/False formatted for UE)
+            const sandworms = document.getElementById('sandworms').checked ? "True" : "False";
+            const coriolis = document.getElementById('coriolis').checked ? "True" : "False";
+            const sandstorms = document.getElementById('sandstorms').checked ? "True" : "False";
+            const pvp = document.getElementById('pvp').checked ? "True" : "False";
+            
+            const anticheat = document.getElementById('anticheat').checked ? "true" : "false";
+            const charTransfer = document.getElementById('charTransfer').checked ? "True" : "False";
+            const shareMarkers = document.getElementById('shareMarkers').checked ? "True" : "False";
+
+            // Process UserEngine.ini Template
+            const engineTemplate = `[/Script/OnlineSubsystemUtils.IpNetDriver]
+MaxClientRate=100000
+MaxInternetClientRate=100000
+NetServerMaxTickRate=${tickRate}
+
+[SystemSettings]
+p.NetMaxTickRate=${tickRate}
+p.ServerTickRate=${tickRate}
+
+[/Script/Engine.GameNetworkManager]
+bMovementTimeDiscrepancyDetection=${anticheat}
+bMovementTimeDiscrepancyResolution=${anticheat}
+ClientnetSendMoveThrottleOverPlayerCount=${Math.floor(maxPlayers * 0.75)}`;
+
+            // Process UserGame.ini Template
+            const gameTemplate = `[/Script/Dune.DuneGameMode]
+ServerName="${serverName}"
+ServerPassword="${serverPwd}"
+AdminPassword="${adminPwd}"
+MaxPlayers=${maxPlayers}
+bEnableSandworms=${sandworms}
+bEnableCoriolisStorms=${coriolis}
+bEnableSandstorms=${sandstorms}
+bEnablePvP=${pvp}
+BuildLimitMultiplier=${buildLimit}
+MiningRateMultiplier=${miningRate}
+VehicleMiningMultiplier=${vehicleMining}
+PvPResourceMultiplier=${pvpResource}
+InitialSpawnProtectionTime=${spawnProtection}.0
+
+[/Script/DuneSandbox.PingSystemSettings]
+m_PingMaximumDistance=${pingDistance}.000000
+m_PingMapMarkerExpiryTime=${pingExpiry}
+m_PingInWorldMarkerExpiryTime=${Math.floor(pingExpiry / 10)}
+
+[/Script/DuneSandbox.ShelterSettings]
+m_ShelterTraceLength=${shelterTrace}.000000
+
+[/Script/DuneSandbox.MapFeatures]
+m_Maps=(((Name="HaggaBasin"), (m_bAllowCharacterTransfer=${charTransfer})))
+m_Maps=(((Name="Arrakeen"), (m_bShareMapMarkersAcrossDimensions=${shareMarkers})))`;
+
+            // Inject back to DOM
+            document.getElementById('engineOutput').textContent = engineTemplate;
+            document.getElementById('gameOutput').textContent = gameTemplate;
+        }
+
+        function copyToClipboard(elementId, button) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.remove('bg-stone-800', 'border-stone-700');
+                button.classList.add('bg-emerald-600', 'border-emerald-500', 'text-white');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.add('bg-stone-800', 'border-stone-700');
+                    button.classList.remove('bg-emerald-600', 'border-emerald-500');
+                }, 1500);
+            });
+        }
+
+        // Initialize event listeners for seamless reactivity
+        form.addEventListener('input', updateConfigs);
+        // Fire initialization on run
+        updateConfigs();
+    </script>
+</body>
+</html>
