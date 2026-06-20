@@ -619,10 +619,23 @@ m_MaxFps=${fpsCap}`;
             refresh();
         }
 
+        function nextPartitionFor(mapName) {
+            let max = 0;
+            const escaped = mapName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            instances.forEach(inst => {
+                const m = new RegExp('^' + escaped + ':(\\d+)$').exec((inst.targetPartition || '').trim());
+                if (m) max = Math.max(max, parseInt(m[1]));
+            });
+            return mapName + ':' + (max + 1);
+        }
+
         function duplicateInstance() {
             saveActive();
             const cfg = { ...instances[activeIndex] };
             cfg.serverName = (cfg.serverName || 'Instance') + ' (copy)';
+            const tp = (cfg.targetPartition || '').trim();
+            const m = /^(.+):(\d+)$/.exec(tp);
+            cfg.targetPartition = m ? nextPartitionFor(m[1]) : nextHaggaPartition();
             instances.splice(activeIndex + 1, 0, cfg);
             activeIndex += 1;
             writeForm(instances[activeIndex]);
@@ -652,7 +665,24 @@ m_MaxFps=${fpsCap}`;
         }
 
         function compileAll() {
-            const output = instances.map(buildPartition).join('\n\n');
+            const seen = {};
+            const dupes = [];
+            instances.forEach((inst, i) => {
+                const key = (inst.targetPartition || 'Survival_1:1').trim() || 'Survival_1:1';
+                if (seen[key] !== undefined) {
+                    dupes.push({ key, indices: [seen[key], i] });
+                } else {
+                    seen[key] = i;
+                }
+            });
+            let output = instances.map(buildPartition).join('\n\n');
+            if (dupes.length) {
+                const keys = [...new Set(dupes.map(d => d.key))];
+                const warning = '; WARNING — duplicate partition ID(s) detected: ' +
+                    keys.join(', ') +
+                    '\n; The compiled output contains repeated [Partition:…] sections that will conflict.\n; Give each instance a unique Partition ID before pasting into UserGame.ini.\n\n';
+                output = warning + output;
+            }
             document.getElementById('partitionOutput').textContent = output;
         }
 
