@@ -1,2 +1,2 @@
 # duneawakeningselfhost_ini_maker
-makes usergame and userengine ini files for self hosting
+makes UserGame.ini file for self hosting when using https://github.com/Red-Blink/dune-awakening-selfhost-docker
