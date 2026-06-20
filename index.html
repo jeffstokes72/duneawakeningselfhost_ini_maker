@@ -587,6 +587,7 @@ m_MaxFps=${fpsCap}`;
         let instances = [];
         let activeIndex = 0;
         let INITIAL_DEFAULTS = {};
+        let instanceCounter = 1;
 
         function escapeHtml(s) {
             return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -610,7 +611,8 @@ m_MaxFps=${fpsCap}`;
             saveActive();
             const cfg = { ...INITIAL_DEFAULTS };
             cfg.targetPartition = nextHaggaPartition();
-            cfg.serverName = 'Hagga Shard ' + cfg.targetPartition.split(':')[1];
+            instanceCounter += 1;
+            cfg.serverName = 'New Instance ' + instanceCounter;
             instances.push(cfg);
             activeIndex = instances.length - 1;
             writeForm(instances[activeIndex]);
